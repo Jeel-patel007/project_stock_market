@@ -1,5 +1,5 @@
-const { generalResponse } = require("../helpers/response.helper");
-const { getUsers, getUserWithPosts } = require("../repository/user.repository");
+const { generalResponse } = require("../helpers/responceHandler");
+const { getUsers, getUserWithPosts } = require("../repository/userRepository");
 
 async function getAllUsers(req, res) {
   try {
