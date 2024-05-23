@@ -11,8 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      stock_master.hasMany(models.stock_listing);
-      stock_master.hasMany(models.stock_prices);
+      stock_master.hasMany(models.stock_listing, {
+        foreignKey: 'stock_id',
+        onDelete: 'CASCADE'
+      });
+      stock_master.hasMany(models.stock_prices, {
+        foreignKey: 'stock_id',
+        onDelete: 'CASCADE'
+      });
     }
   }
   stock_master.init({
@@ -27,8 +33,9 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: DataTypes.DATE
   }, {
     sequelize,
-    timestamps:true,
-    paranoid:true,
+    timestamps: true,
+    freezeTableName: true,
+    paranoid: true,
     modelName: 'stock_master',
   });
   return stock_master;
