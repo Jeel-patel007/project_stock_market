@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       stock_master.hasMany(models.stock_listing);
+      stock_master.hasMany(models.stock_prices);
     }
   }
   stock_master.init({

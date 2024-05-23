@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete:'CASCADE',
         onUpdate:'CASCADE'
       });
-      stock_listing.belongsTo(models.stock_exchange,{
+      stock_listing.belongsTo(models.stock_exchanges,{
         foreignKey:'exchange_id',
         onDelete:'CASCADE',
         onUpdate:'CASCADE'
