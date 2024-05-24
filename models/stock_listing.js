@@ -11,15 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      stock_listing.belongsTo(models.stock_master,{
-        foreignKey:'stock_id',
-        onDelete:'CASCADE',
-        onUpdate:'CASCADE'
+      stock_listing.belongsTo(models.stock_master, {
+        foreignKey: 'stock_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       });
-      stock_listing.belongsTo(models.stock_exchanges,{
-        foreignKey:'exchange_id',
-        onDelete:'CASCADE',
-        onUpdate:'CASCADE'
+      stock_listing.belongsTo(models.stock_exchanges, {
+        foreignKey: 'exchange_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       });
     }
   }
@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: DataTypes.DATE
   }, {
     sequelize,
-    timestamps:true,
-    paranoid:true,
+    timestamps: true,
+    paranoid: true,
     modelName: 'stock_listing',
   });
   return stock_listing;

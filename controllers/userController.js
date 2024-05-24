@@ -24,7 +24,7 @@ async function getAllUsers(req, res) {
 async function insertUser(req, res) {
   try {
     const currentTime = new Date().toISOString();
-    const { firstName, lastName, email } = req.body;
+    const { firstName, lastName, email, roleId } = req.body;
     // don't pass this custom TimeStamps to database this way - add NOW() in default and updatedAt should be null while inserting data.
     const newUser = await createUser({
       firstName,
@@ -32,6 +32,7 @@ async function insertUser(req, res) {
       email,
       createdAt: currentTime,
       updatedAt: currentTime,
+      roleId
     });
     return generalResponse(
       res,
@@ -51,23 +52,7 @@ async function insertUser(req, res) {
   }
 }
 
-async function getUserPosts(req, res) {
-  try {
-    const userId = req.query.id;
-    const userPosts = await getUserWithPosts(userId);
-    return generalResponse(res, userPosts, "User posts fetched.", true);
-  } catch (error) {
-    return generalResponse(
-      res,
-      { success: false },
-      "Something went wrong while fetching users!",
-      "error",
-      true
-    );
-  }
-}
 module.exports = {
   getAllUsers,
-  insertUser,
-  getUserPosts,
+  insertUser
 };
