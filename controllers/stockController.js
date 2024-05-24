@@ -1,5 +1,6 @@
 const { generalResponse } = require("../helpers/responceHandler");
 const db = require("../models/index");
+const { findStockById } = require("../repository/stockRepository");
 const { stock_master, stock_prices, stock_exchanges } = db;
 
 const addStock = async (req, res) => {
@@ -163,4 +164,21 @@ const getAllStockExchanges = async (req, res) => {
     }
 }
 
-module.exports = { getAllStocks, getAllStockExchanges, addStock, updateStock, deleteStock };
+const getStock = async (req, res) => {
+    try {
+        const stockId = req.params.id;
+        const stock = await findStockById(stockId);
+        return generalResponse(res, stock, "Stock Fetched", true);
+
+    } catch (error) {
+        console.log(error);
+        return generalResponse(
+            res,
+            { success: false },
+            "Something went wrong while fetching stock!",
+            true
+        );
+    }
+}
+
+module.exports = { getAllStocks, getAllStockExchanges, addStock, updateStock, deleteStock, getStock };

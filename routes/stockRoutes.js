@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { getAllStocks, getAllStockExchanges, addStock, updateStock, deleteStock } = require("../controllers/stockController");
+const { getAllStocks, getAllStockExchanges, addStock, updateStock, deleteStock, getStock } = require("../controllers/stockController");
 const { addStockListing, updateStockListing, deleteStockListing } = require("../controllers/stockListingController");
 const { addStockPrice } = require("../controllers/stockPriceContoller");
 const { addStockPriceValidationRules, addStockValidation } = require("../validations/stockValidation");
 const validate = require("../middlewares/validate");
 
-router.get("/getStocks", getAllStocks);
+router.get("/getStock/:id", getStock)
+router.get("/getAllStocks", getAllStocks);
 router.get("/getStockExchanges", getAllStockExchanges);
 router.post("/addStock", addStockValidation(), validate, addStock);
 router.post("/updateStock", addStockValidation(), validate, updateStock);

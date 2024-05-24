@@ -11,10 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      stock_prices.belongsTo(models.stock_master, {
-        foreignKey: 'stock_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+      stock_prices.belongsTo(models.stock_master, {  
+        foreignKey: 'stock_id'
       });
 
       stock_prices.belongsToMany(models.user, {
