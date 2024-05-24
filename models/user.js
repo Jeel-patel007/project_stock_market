@@ -11,15 +11,33 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      user.belongsToMany(models.stock_prices, {
+        through: models.user_has_stock,
+        foreignKey: 'user_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
+
+      user.hasMany(models.transaction, {
+        foreignKey: 'user_id',
+        onDelete: 'CASCADE'
+      })
+
+      user.belongsToMany(models.stock_master,{
+        through:'user_watchlist',
+        foreignKey:'user_id',
+        onDelete:'CASCADE'
+      })
     }
   }
   user.init({
     firstname: DataTypes.STRING,
     lastname: DataTypes.STRING,
-    email: DataTypes.STRING
+    email: DataTypes.STRING,
+    role_id: DataTypes.INTEGER,
   }, {
     sequelize,
-    timestamps:true,
+    timestamps: true,
     modelName: 'user',
   });
   return user;

@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      dividends.belongsTo(models.stock_master, {
+        foreignKey: 'stock_id',
+        onDelete: 'CASCADe'
+      })
     }
   }
   dividends.init({

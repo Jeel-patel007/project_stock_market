@@ -1,5 +1,8 @@
 const { generalResponse } = require("../helpers/responceHandler");
-const { getUsers, getUserWithPosts } = require("../repository/userRepository");
+const db = require("../models");
+const { getUsers } = require("../repository/userRepository");
+
+const { user } = db
 
 async function getAllUsers(req, res) {
   try {
@@ -26,13 +29,13 @@ async function insertUser(req, res) {
     const currentTime = new Date().toISOString();
     const { firstName, lastName, email, roleId } = req.body;
     // don't pass this custom TimeStamps to database this way - add NOW() in default and updatedAt should be null while inserting data.
-    const newUser = await createUser({
-      firstName,
-      lastName,
+    const newUser = await user.create({
+      'firstname':firstName,
+      'lastname':lastName,
       email,
       createdAt: currentTime,
       updatedAt: currentTime,
-      roleId
+      'role_id': roleId 
     });
     return generalResponse(
       res,

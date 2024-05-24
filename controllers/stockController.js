@@ -24,7 +24,7 @@ const addStock = async (req, res) => {
         }
         return generalResponse(
             res,
-            { success: true },
+            result,
             "Stock added.",
             true
         );
@@ -34,6 +34,7 @@ const addStock = async (req, res) => {
             res,
             { success: false },
             "Something went wrong while adding stock",
+            "error",
             true
         );
     }
@@ -59,6 +60,7 @@ const updateStock = async (req, res) => {
                 res,
                 { success: false },
                 "Something went wrong while updating stock",
+                "error",
                 true
             );
         }
@@ -74,6 +76,7 @@ const updateStock = async (req, res) => {
             res,
             { success: false },
             "Something went wrong while updating stock",
+            "error",
             true
         );
     }
@@ -92,6 +95,7 @@ const deleteStock = async (req, res) => {
                 res,
                 { success: false },
                 "Something went wrong while deleting stock",
+                "error",
                 true
             );
         }
@@ -107,6 +111,7 @@ const deleteStock = async (req, res) => {
             res,
             { success: false },
             "Something went wrong while deleting stock",
+            "error",
             true
         );
     }
@@ -131,6 +136,7 @@ const getAllStocks = async (req, res) => {
             res,
             { success: false },
             "Something went wrong while fetching stocks!",
+            "error",
             true
         );
     }
@@ -151,6 +157,7 @@ const getAllStockExchanges = async (req, res) => {
             res,
             { success: false },
             "Something went wrong while fetching stock exchanges",
+            "error",
             true
         );
     }

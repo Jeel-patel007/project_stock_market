@@ -19,6 +19,19 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'stock_id',
         onDelete: 'CASCADE'
       });
+      stock_master.hasMany(models.transaction, {
+        foreignKey: 'stock_id',
+        onDelete: 'CASCADE'
+      });
+      stock_master.belongsToMany(models.user, {
+        through: models.user_watchlist,
+        foreignKey: 'stock_id',
+        onDelete: 'CASCADE'
+      });
+      stock_master.hasMany(models.dividends, {
+        foreignKey: 'stock_id',
+        onDelete: 'CASCADE',
+      })
     }
   }
   stock_master.init({

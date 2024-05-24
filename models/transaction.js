@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      transaction.belongsTo(models.user,{
+        foreignKey:'user_id',
+        onDelete:'CASCADE'
+      });
+      transaction.belongsTo(models.stock_master,{
+        foreignKey:'stock_id',
+        onDelete:'CASCADE'
+      })
     }
   }
   transaction.init({

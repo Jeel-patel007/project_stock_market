@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      stock_exchanges.hasMany(models.stock_listing);
+      stock_exchanges.hasMany(models.stock_listing, {
+        foreignKey: 'exchange_id',
+        onDelete: 'CASCADE'
+      });
     }
   }
   stock_exchanges.init({
@@ -20,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: DataTypes.DATE
   }, {
     sequelize,
-    timestamps:true,
-    paranoid:true,
+    timestamps: true,
+    paranoid: true,
     modelName: 'stock_exchanges',
   });
   return stock_exchanges;

@@ -5,9 +5,11 @@ const {
   insertUser,
   getUserPosts,
 } = require("../controllers/userController");
+const { userBuyStocks, userSellStocks } = require("../controllers/transactionController");
 
-router.get("/get-users", getAllUsers);
-router.post("/insert-user", insertUser);
-
+router.get("/getUsers", getAllUsers);
+router.post("/insertUser", insertUser);
+router.post("/buyStock", userBuyStocks);
+router.post("/sellStock", userSellStocks);
 
 module.exports = router;

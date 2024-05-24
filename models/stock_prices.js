@@ -11,10 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      stock_prices.belongsTo(models.stock_master,{
-        foreignKey:'stock_id',
-        onDelete:'CASCADE',
-        onUpdate:'CASCADE'
+      stock_prices.belongsTo(models.stock_master, {
+        foreignKey: 'stock_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
+
+      stock_prices.belongsToMany(models.user, {
+        through: models.user_has_stock,
+        foreignKey: 'price_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       })
     }
   }
@@ -24,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     asoftime: DataTypes.DATE
   }, {
     sequelize,
-    timestamps:true,
+    timestamps: true,
     modelName: 'stock_prices',
   });
   return stock_prices;
