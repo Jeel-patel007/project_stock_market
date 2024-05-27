@@ -55,6 +55,31 @@ const insertUser = async (req, res) => {
   }
 }
 
+const updateUser = async (req, res) => {
+  try {
+    const { userId, firstName, lastName, email } = req.body;
+    const result = await user.update({
+      'firstname': firstName,
+      'lastname': lastName,
+      'email': email
+    }, {
+      where: {
+        'id': userId
+      }
+    });
+    return generalResponse(res, result, "User updated.", true);
+  } catch (error) {
+    console.log(error);
+    return generalResponse(
+      res,
+      { success: false },
+      "Something went wrong while updating user!",
+      "error",
+      true
+    )
+  }
+}
+
 const userProfile = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -94,5 +119,6 @@ const userProfile = async (req, res) => {
 module.exports = {
   getAllUsers,
   insertUser,
-  userProfile
+  userProfile,
+  updateUser
 };

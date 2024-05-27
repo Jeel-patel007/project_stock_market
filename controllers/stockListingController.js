@@ -50,13 +50,13 @@ const updateStockListing = async (req, res) => {
 
 const deleteStockListing = async (req, res) => {
   try {
-    const { listingId } = req.body;
+    const listingId = req.params.id;
     const result = await stock_listing.destroy({
       where: {
         'id': listingId
       }
     });
-    return generalResponse(res,result,"Stock listing deleted",true)
+    return generalResponse(res, result, "Stock listing deleted", true)
   } catch (error) {
     console.log(error);
     return generalResponse(res,

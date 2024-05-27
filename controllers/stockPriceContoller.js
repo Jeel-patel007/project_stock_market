@@ -19,6 +19,7 @@ const addStockPrice = async (req, res) => {
       res,
       { success: false },
       "Something went wrong while adding price to stock!",
+      "error",
       true
     );
   }
@@ -36,7 +37,7 @@ const stockPriceUpdate = async (req, res) => {
         'stock_id': stockId
       }
     });
-    return generalResponse(res, result, "stock price updated")
+    return generalResponse(res, result, "stock price updated", true)
   } catch (error) {
     console.log(error);
     return generalResponse(

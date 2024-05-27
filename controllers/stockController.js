@@ -84,7 +84,7 @@ const updateStock = async (req, res) => {
 
 const deleteStock = async (req, res) => {
     try {
-        const { stockId } = req.body;
+        const stockId = req.params.id;
         const result = await stock_master.destroy({
             where: {
                 id: stockId

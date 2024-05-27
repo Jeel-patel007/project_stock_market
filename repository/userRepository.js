@@ -1,8 +1,8 @@
 const db = require("../models/index");
-const { User } = db;
+const { user } = db;
 const getUsers = async () => {
   try {
-    const users = await User.findAll();
+    const users = await user.findAll();
     return users;
   } catch (error) {
     console.log(error);
@@ -12,7 +12,7 @@ const getUsers = async () => {
 
 async function createUser(userPayload) {
   try {
-    const newUser = await User.create(userPayload);
+    const newUser = await user.create(userPayload);
     return newUser;
   } catch (error) {
     console.error("Error creating user:", error);
@@ -22,7 +22,7 @@ async function createUser(userPayload) {
 
 async function getUserWithPosts(userId) {
   try {
-    const user = await User.findByPk(userId, {
+    const user = await user.findByPk(userId, {
       include: {
         model: Post,
         as: "posts",

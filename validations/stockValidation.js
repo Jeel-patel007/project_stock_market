@@ -22,4 +22,19 @@ const transactionValidation = () => {
   ];
 }
 
-module.exports = { addStockPriceValidationRules, addStockValidation, transactionValidation };
+const stockListingValidate = () => {
+  return [
+    body('stockId').exists().withMessage('StockId is required').isInt().withMessage('stockId must be an integer'),
+    body('exchangeId').exists().withMessage('ExchangeId is required').isInt().withMessage('ExchangeId must be an integer'),
+    body('ticker').exists().withMessage('ticker is required')
+  ];
+}
+
+const stockDividendValidation = () => {
+  return [
+    body('stockId').exists().withMessage('StockId must required!').isInt().withMessage('StockId must be an integer'),
+    body('amount').exists().withMessage('amount must required!').isFloat().withMessage('invalid amount')
+  ];
+}
+
+module.exports = { addStockPriceValidationRules, addStockValidation, transactionValidation, stockListingValidate, stockDividendValidation };
