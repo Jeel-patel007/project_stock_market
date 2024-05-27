@@ -2,7 +2,7 @@ const { generalResponse } = require("../helpers/responceHandler");
 const db = require("../models");
 const { getUsers } = require("../repository/userRepository");
 
-const { user, user_has_stock, stock_prices } = db
+const { user, user_has_stock, stock_prices, user_watchlist } = db
 
 const getAllUsers = async (req, res) => {
   try {
@@ -116,9 +116,52 @@ const userProfile = async (req, res) => {
   }
 }
 
+const addStockWatchlist = async (req, res) => {
+  try {
+    const { userId, stockId } = req.body;
+    const result = await user_watchlist.create({
+      'user_id': userId,
+      'stock_id': stockId
+    });
+    return generalResponse(res, result, "Stock added into watchlist.");
+  } catch (error) {
+    console.log(error);
+    return generalResponse(
+      res,
+      { success: false },
+      "Something went wrong while adding stock into watchlist",
+      "error",
+      true
+    );
+  }
+}
+
+const removeStockWatchlist = async (req, res) => {
+  try {
+    const listId = req.params.id
+    const result = await user_watchlist.destroy({
+      where: {
+        'id': listId
+      }
+    });
+    return generalResponse(res, result, "stock removed from watchlist", true)
+  } catch (error) {
+    console.log(error);
+    return generalResponse(
+      res,
+      { success: false },
+      "Something went wrong while remove stock from watchlist",
+      "error",
+      true
+    );
+  }
+}
+
 module.exports = {
   getAllUsers,
   insertUser,
   userProfile,
-  updateUser
+  updateUser,
+  addStockWatchlist,
+  removeStockWatchlist
 };
