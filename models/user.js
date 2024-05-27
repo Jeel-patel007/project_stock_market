@@ -24,10 +24,12 @@ module.exports = (sequelize, DataTypes) => {
       })
 
       user.belongsToMany(models.stock_master, {
-        through: 'user_watchlist',
+        through: models.user_watchlist,
         foreignKey: 'user_id',
         onDelete: 'CASCADE'
       });
+
+
 
     }
   }
