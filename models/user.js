@@ -23,11 +23,12 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE'
       })
 
-      user.belongsToMany(models.stock_master,{
-        through:'user_watchlist',
-        foreignKey:'user_id',
-        onDelete:'CASCADE'
-      })
+      user.belongsToMany(models.stock_master, {
+        through: 'user_watchlist',
+        foreignKey: 'user_id',
+        onDelete: 'CASCADE'
+      });
+
     }
   }
   user.init({

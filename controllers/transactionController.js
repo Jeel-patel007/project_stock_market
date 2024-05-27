@@ -67,7 +67,7 @@ const userSellStocks = async (req, res) => {
 
     if (!userStock || userStock.quantity < quantity) {
       throw new Error("Insufficient stocks to sell");
-    }a
+    } a
 
     result = await transaction.create({
       'user_id': userId,
@@ -100,6 +100,5 @@ const userSellStocks = async (req, res) => {
     );
   }
 }
-
 
 module.exports = { userBuyStocks, userSellStocks }

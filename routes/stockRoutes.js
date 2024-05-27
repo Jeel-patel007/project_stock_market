@@ -5,6 +5,7 @@ const { addStockListing, updateStockListing, deleteStockListing } = require("../
 const { addStockPrice } = require("../controllers/stockPriceContoller");
 const { addStockPriceValidationRules, addStockValidation } = require("../validations/stockValidation");
 const validate = require("../middlewares/validate");
+const { generateDividend } = require("../controllers/dividendController");
 
 router.get("/getStocks", getAllStocks);
 router.get("/getStockExchanges", getAllStockExchanges);
@@ -15,5 +16,6 @@ router.post("/addStockListing", addStockListing);
 router.post("/updateStockListing", updateStockListing);
 router.post("/deleteStockListing", deleteStockListing);
 router.post("/addStockPrice", addStockPriceValidationRules(), validate, addStockPrice);
+router.post("/addDividend", generateDividend);
 
 module.exports = router;
