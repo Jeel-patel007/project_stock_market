@@ -24,6 +24,31 @@ const addStockPrice = async (req, res) => {
   }
 }
 
-module.exports = { addStockPrice };
+const stockPriceUpdate = async (req, res) => {
+  try {
+    const { stockId, price } = req.body;
+    const currentTime = new Date().toISOString();
+    const result = await stock_prices.update({
+      price,
+      'asoftime': currentTime,
+    }, {
+      where: {
+        'stock_id': stockId
+      }
+    });
+    return generalResponse(res, result, "stock price updated")
+  } catch (error) {
+    console.log(error);
+    return generalResponse(
+      res,
+      { success: false },
+      "Something went wrong while updating stock price",
+      "error",
+      true
+    );
+  }
+}
+
+module.exports = { addStockPrice, stockPriceUpdate };
 
 

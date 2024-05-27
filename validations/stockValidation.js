@@ -14,4 +14,12 @@ const addStockPriceValidationRules = () => {
   ];
 };
 
-module.exports = { addStockPriceValidationRules, addStockValidation };
+const transactionValidation = () => {
+  return [
+    body('userId').exists().withMessage('UserId is required').isInt().withMessage('UserId must be and integer'),
+    body('priceId').exists().withMessage('PriceId is required').isInt().withMessage('priceId must be and integer'),
+    body('quantity').exists().withMessage('Quantity is requirecd').isInt().withMessage('Quantity must be integer')
+  ];
+}
+
+module.exports = { addStockPriceValidationRules, addStockValidation, transactionValidation };

@@ -2,9 +2,9 @@ const { generalResponse } = require("../helpers/responceHandler");
 const db = require("../models");
 const { getUsers } = require("../repository/userRepository");
 
-const { user } = db
+const { user, user_has_stock, stock_prices } = db
 
-async function getAllUsers(req, res) {
+const getAllUsers = async (req, res) => {
   try {
     /**
      * getUsers is a repository here - in repository you can write functions which interacts with different services
@@ -24,18 +24,18 @@ async function getAllUsers(req, res) {
   }
 }
 
-async function insertUser(req, res) {
+const insertUser = async (req, res) => {
   try {
     const currentTime = new Date().toISOString();
     const { firstName, lastName, email, roleId } = req.body;
     // don't pass this custom TimeStamps to database this way - add NOW() in default and updatedAt should be null while inserting data.
     const newUser = await user.create({
-      'firstname':firstName,
-      'lastname':lastName,
+      'firstname': firstName,
+      'lastname': lastName,
       email,
+      'role_id': roleId,
       createdAt: currentTime,
       updatedAt: currentTime,
-      'role_id': roleId 
     });
     return generalResponse(
       res,
@@ -55,7 +55,44 @@ async function insertUser(req, res) {
   }
 }
 
+const userProfile = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    let result = await user.findOne({
+      where: {
+        'id': userId
+      }
+    });
+    if (result == null) {
+      throw new Error("user does not exist");
+    }
+    result = await user.findAll({
+      include: {
+        model: stock_prices,
+        through: {
+          model: user_has_stock
+        }
+      },
+      require: true,
+      where: {
+        'id': userId
+      },
+    });
+    return generalResponse(res, result, "profile fetched", true);
+  } catch (error) {
+    console.log("Error while loading user profile", error);
+    return generalResponse(
+      res,
+      { success: false },
+      "Something went wrong while fetching profile",
+      "error",
+      true
+    );
+  }
+}
+
 module.exports = {
   getAllUsers,
-  insertUser
+  insertUser,
+  userProfile
 };

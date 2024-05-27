@@ -6,7 +6,7 @@ const validate = (req, res, next) => {
   if (!errors.isEmpty()) {
     return generalResponse(res, errors, "Please Provide Valid input", true)
   }
-  next(); 
+  next();
 };
 
-module.exports = validate;
+module.exports = { validate };
