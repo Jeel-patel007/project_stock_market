@@ -19,30 +19,37 @@ const addStockPrice = async (req, res) => {
       res,
       { success: false },
       "Something went wrong while adding price to stock!",
+      "error",
       true
     );
   }
 }
 
-const addWatchlist = async (req, res) => {
+const stockPriceUpdate = async (req, res) => {
   try {
-    const { stockId, userId } = req.body;
-    const result = await user_watchlist.create({
-      'user_id': userId,
-      'stock_id': stockId
+    const { stockId, price } = req.body;
+    const currentTime = new Date().toISOString();
+    const result = await stock_prices.update({
+      price,
+      'asoftime': currentTime,
+    }, {
+      where: {
+        'stock_id': stockId
+      }
     });
-    return generalResponse(res, result, "Stock added to your watchlist");
+    return generalResponse(res, result, "stock price updated", true)
   } catch (error) {
     console.log(error);
     return generalResponse(
       res,
       { success: false },
-      "Something Went wrong while adding stock into watchlist!",
+      "Something went wrong while updating stock price",
+      "error",
       true
-    )
+    );
   }
 }
 
-module.exports = { addStockPrice, addWatchlist };
+module.exports = { addStockPrice, stockPriceUpdate };
 
 

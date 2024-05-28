@@ -20,6 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: DataTypes.DATE
   }, {
     sequelize,
+    timestamps: true,
+    paranoid: true,
     modelName: 'user_watchlist',
   });
   return user_watchlist;

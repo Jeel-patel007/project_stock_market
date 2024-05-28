@@ -24,6 +24,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'dividends',
+    hooks: {
+      beforeCreate: (record, options) => {
+        record.dataValues.declaration_date = new Date()
+          .toISOString()
+          .replace(/T/, ' ')
+          .replace(/\..+/g, '');
+      }
+    }
   });
   return dividends;
 };

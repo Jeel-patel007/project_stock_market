@@ -31,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
       stock_master.hasMany(models.dividends, {
         foreignKey: 'stock_id',
         onDelete: 'CASCADE',
-      })
+      });
+
     }
   }
   stock_master.init({

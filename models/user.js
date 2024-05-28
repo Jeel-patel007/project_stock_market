@@ -27,7 +27,10 @@ module.exports = (sequelize, DataTypes) => {
         through: models.user_watchlist,
         foreignKey: 'user_id',
         onDelete: 'CASCADE'
-      })
+      });
+
+
+
     }
   }
   user.init({
